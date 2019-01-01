@@ -1,7 +1,10 @@
-.PHONY: all clean-pyc test coverage install
+.PHONY: all clean-pyc test coverage install run
 
 install:
-	pip install
+	pip install -r .meta/packages
+
+run: install
+	python -m server.app
 
 clean-pyc:
 	find . -name '*.pyc' -delete
