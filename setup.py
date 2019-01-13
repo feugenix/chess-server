@@ -7,7 +7,7 @@ import setuptools
 with open("README.md", "r") as f:
     LONG_DESCRIPTION = f.read()
 
-with open(".meta/packages", "r") as f:
+with open(".meta/packages_base", "r") as f:
     REQUIREMENTS = f.read().split('\n')
 
 with open("LICENSE") as f:

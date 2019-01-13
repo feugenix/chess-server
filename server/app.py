@@ -7,6 +7,7 @@ import websockets
 from .settings import settings as app_settings
 from .dispatcher.dispatcher import Dispatcher
 
+USERS = set()
 
 class App:
     """
@@ -27,16 +28,27 @@ class App:
         except KeyboardInterrupt:
             pass
         finally:
+            USERS.clear()
             loop.run_until_complete(loop.shutdown_asyncgens())
             loop.close()
+
+    def register(self, websocket):
+        USERS.add(websocket)
+
+    def unregister(self, websocket):
+        USERS.discard(websocket)
 
     async def on_message(self, websocket):
         """
         Handler of socket messages
         """
-        async for message in websocket:
-            answer = self._dispatcher.dispatch(message)
-            await websocket.send(answer)
+        self.register(websocket)
+        try:
+            async for message in websocket:
+                answer = self._dispatcher.dispatch(message)
+                await websocket.send(answer)
+        finally:
+            self.unregister(websocket)
 
 
 if __name__ == "__main__":

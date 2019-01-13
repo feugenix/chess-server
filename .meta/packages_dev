@@ -1,0 +1,4 @@
+-r packages_base
+
+pylint==2.2.2
+asynctest==0.12.2
