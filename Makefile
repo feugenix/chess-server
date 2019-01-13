@@ -1,4 +1,4 @@
-.PHONY: all clean-pyc test coverage install install-dev run
+.PHONY: all clean-pyc test coverage install install-dev run lint
 
 all: run
 
@@ -21,3 +21,6 @@ test: install-dev
 coverage: install-dev
 	coverage run --source=server -m unittest discover
 	coverage report
+
+lint: install-dev
+	pylint server

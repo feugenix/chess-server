@@ -33,9 +33,15 @@ class App:
             loop.close()
 
     def register(self, websocket):
+        """
+        Register new websocket user
+        """
         USERS.add(websocket)
 
     def unregister(self, websocket):
+        """
+        Unregister new websocket user
+        """
         USERS.discard(websocket)
 
     async def on_message(self, websocket):
